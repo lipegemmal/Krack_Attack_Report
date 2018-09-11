@@ -34,7 +34,7 @@ Alameda Palmeiras, Quadra D,Câmpus Samambaia -- \\ 74690-900 -- Goiânia -- GO 
 
 %Tal pessoa escreve
 \section{Introdução}
-	O Krack Attack \cite{vanhoef-ccs2017} foi desenvolvido em 2017 por Mathy Vanhoef do grupo de pesquisa DistriNet da universidade belga Ku Leuven. Ele é tipo de ataque ao Wi-Fi, mais precisamente ao protocolo WPA2 (\textit{Wi-Fi Protected Access}) responsável pela segurança da comunicação entre usuário e ponto de acesso. O ataque explora uma vulnerabilidade na etapa de autenticação, mais especificamente na parte de  confirmação do 4-way handshake. Esse consiste na mainpulação dos pacotes trocados entre as partes durante essa etapa, tornando-o um ataque do tipo \textit{Man in The Middle} (MITM).
+	O Krack Attack \cite{vanhoef:2017} foi desenvolvido em 2017 por Mathy Vanhoef do grupo de pesquisa DistriNet da universidade belga Ku Leuven. Ele é tipo de ataque ao Wi-Fi, mais precisamente ao protocolo WPA2 (\textit{Wi-Fi Protected Access}) responsável pela segurança da comunicação entre usuário e ponto de acesso. O ataque explora uma vulnerabilidade na etapa de autenticação, mais especificamente na parte de  confirmação do 4-way handshake. Esse consiste na mainpulação dos pacotes trocados entre as partes durante essa etapa, tornando-o um ataque do tipo \textit{Man in The Middle} (MITM).
 	Em dispositivos Android e Linux, que usam o cliente de Wi-Fi \textit{wpa\_supplicant}, foi identificada uma situação específica em que a chave da sessão utilizada para criptografar os pacotes pode ser forçada pelo ataque a assumir o valor zero. Isso torna trivial interceptar e manipular o tráfego de dados entre esses dispositivos.
 
 \section{Tecnologias envolvidas}
@@ -62,7 +62,7 @@ Embora o ataque destine-se à interceptação de dados sem a necessidade de se c
 Todas as ferramentas até o momento liberadas destinam-se somente a testes. Nenhuma ferramenta capaz de efetivamente realizar o ataque foi publicada, embora o autor tenha exibido em vídeo uma prova de conceito em funcionamento da exploração do caso particular em que uma chave composta somente de zeros é reinstalada.
 
 
-\section{Conclusão}
+%\section{Conclusão}
 
 
 %\begin{abstract}
@@ -171,7 +171,7 @@ Todas as ferramentas até o momento liberadas destinam-se somente a testes. Nenh
 %images with excessive resolution, as they may take hours to print, without any
 %visible difference in the result. 
 %
-%\section{References}
+\section{Referências}
 %
 %Bibliographic references must be unambiguous and uniform.  We recommend giving
 %the author names references in brackets, e.g. \cite{knuth:84},
@@ -181,7 +181,7 @@ Todas as ferramentas até o momento liberadas destinam-se somente a testes. Nenh
 %before each reference. The first line of each reference should not be
 %indented, while the subsequent should be indented by 0.5 cm.
 %
-%\bibliographystyle{sbc}
-%\bibliography{sbc-template}
+\bibliographystyle{sbc}
+\bibliography{sbc-template}
 
 \end{document}
