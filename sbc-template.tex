@@ -5,6 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
 \usepackage[T1]{fontenc}  
+\usepackage{indentfirst}
 
      
 \sloppy
@@ -43,11 +44,17 @@ Alameda Palmeiras, Quadra D,Câmpus Samambaia -- \\ 74690-900 -- Goiânia -- GO 
 % -
 \section{Tecnologias envolvidas}
 \subsection{Wifi}
-É uma tecnologia criada para redes locais de radio sem fio de dispositivos baseados no padrão IEEE 802.11. Dispositivos que completam com sucesso o teste de certificado de interoperabilidade podem ser chamados de “Certificado em Wi-Fi” (Wi-Fi Certified). O padrão Wi-Fi opera em faixas de frequências que não necessitam de licença para instalação e/ou operação. Dispositivos compatíveis podem acessar a internet por meio de uma rede local sem fio (WLAN) e um ponto de acesso sem fio. Wi-Fi geralmente usa 2.4 giga-hertz UHG e frequências de rádio 5.8 giga-hertz SHF ISM , que podem ser compartilhadas por tempo por várias redes. Vários materiais comuns refletem ou absorvem tais ondas, restringindo ainda mais à distância de conexão, mas também diminuem a interferência entre redes. Qualquer pessoa dentro da área com uma interface de controle de uma rede sem fio pode tentar acessar a rede. Por causa disso, Wi-Fi é mais vulnerável a ataques que redes conectadas por fios.s
+É uma tecnologia criada para redes locais de radio sem fio de dispositivos baseados no padrão IEEE 802.11. Dispositivos que completam com sucesso o teste de certificado de interoperabilidade podem ser chamados de “Certificado em Wi-Fi” (Wi-Fi Certified). O padrão Wi-Fi opera em faixas de frequências que não necessitam de licença para instalação e/ou operação. Dispositivos compatíveis podem acessar a internet por meio de uma rede local sem fio (WLAN) e um ponto de acesso sem fio. Wi-Fi geralmente usa 2.4 giga-hertz UHG e frequências de rádio 5.8 giga-hertz SHF ISM , que podem ser compartilhadas por tempo por várias redes. Vários materiais comuns refletem ou absorvem tais ondas, restringindo ainda mais à distância de conexão, mas também diminuem a interferência entre redes. Qualquer pessoa dentro da área com uma interface de controle de uma rede sem fio pode tentar acessar a rede. Por causa disso, Wi-Fi é mais vulnerável a ataques que redes conectadas por fios.
+
 \subsection{WPA2}
-	Substituiu o WPA a partir do IEE 802.11i que faz algumas mudanças no protocolo Wifi, nele o algoritmo de encriptação passa a ser o AES(\textit{Advanced Encryption Standard})
+	Também conhecido como IEE802,11i, é o sucessor do \textbf{WPA}, substituindo-o a partir de 2006.
+Ele traz melhorias de segurança de protocolo wifi, e passa a usar encriptação \textbf{AES} (\textit{Advanced Encryption Standard}), e introduz dois novos protocolos: \textbf{4-way handshake} e \textbf{group key handshake}. Porém tudo isso a custo de alto processamento, tornando alguns equipamentos incompatíveis com \textbf{WPA2}.
+
 \subsubsection{4-Way Handshake}
-Muitas mãos
+O \textit{4-way handshake} utiliza diversas chaves de encriptação para se comunicar de forma segura.
+O cliente e o ponto de acesso enviam mensagens um ao outro, que só podem ser decriptadas com a chave secreta compatilhada \textbf{PMK} (\textit{Pairwise Master Key}), que é determinada após a autenticação da chave pré compartilhada  \textbf{PSK}, que foi gerada na fase inicial de autenticação do cliente.
+
+Dessa forma o \textit{4-way Handshake} permite que tanto o cliente como o ponto de acesso, possam provar um ao outro  que eles conhecem as chaves de encriptação  \textbf{PSK} e \textbf{PMK}, sem nunca divulgar as tais. Pois se a decriptação funcionou então há conhecimento da chave.
 \subsection{Ferramenta}
 O autor do ataque publicou um conjunto de scripts desenvolvidos na linguagem Python que permitem a verificação da vulnerabilidade de qualquer implementação do 4-way handshake. Estes scripts estão disponíveis em um repositório no GitHub\footnote{https://github.com/vanhoefm/krackattacks-scripts}. Com eles é possível a realização de testes que exploram tanto a reinstalação da PTK quanto da GTK. Embora o ataque destine-se à interceptação de dados sem a necessidade de ser conhece a PSK da rede, para os testes é necessário que as credenciais sejam conhecidas. Isto porque o cliente alvo deve se conectar ao Access Point que é personificado pelo script. Este AP é criado a partir de uma versão modificada do hostapd com que o script em Python se comunica. Pode-se usar tanto um SSID novo quanto um existente. Neste último caso, a rede é criada em um canal diferente do da original e o cliente é forçado a se conectar à falsa rede.
 
