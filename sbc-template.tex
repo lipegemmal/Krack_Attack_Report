@@ -24,11 +24,11 @@ Alameda Palmeiras, Quadra D,Câmpus Samambaia -- \\ 74690-900 -- Goiânia -- GO 
 \maketitle
 
 \begin{abstract}
-	This paper references the study of Krack Attack and its correlated components with the objective of completing the Computer Networks 2 graduation course at UFG.
+	This paper references the study of Krack Attack and its correlated components with the objective of completing the networks 2 graduation course in UFG.
 \end{abstract}
 
 \begin{resumo} 
-	Esse artigo aborda o estudo do Krack Attack e seus componentes correlatos com o objetivo de completar o curso de graduação da UFG de Redes de Computadores 2.
+	Esse artigo referencia o estudo do Krack Attack e seus componentes correlatos com o objetivo de completar o curso de graduação da UFG de redes 2.
 \end{resumo}
 
 
@@ -38,7 +38,7 @@ Alameda Palmeiras, Quadra D,Câmpus Samambaia -- \\ 74690-900 -- Goiânia -- GO 
 	Em dispositivos Android e Linux, que usam o cliente de Wi-Fi \textit{wpa\_supplicant}, foi identificada uma situação específica em que a chave da sessão utilizada para criptografar os pacotes pode ser forçada pelo ataque a assumir o valor zero. Isso torna trivial interceptar e manipular o tráfego de dados entre esses dispositivos.
 
 \section{Tecnologias envolvidas}
-\subsection{Wi-Fi}
+\subsection{Wifi}
 É uma tecnologia criada para redes locais de radio sem fio de dispositivos baseados no padrão IEEE 802.11. Dispositivos que completam com sucesso o teste de certificado de interoperabilidade podem ser chamados de \textit{Wi-Fi Certified} (Certificado em Wi-Fi). O padrão Wi-Fi opera em faixas de frequências que não necessitam de licença para instalação e/ou operação. Dispositivos compatíveis podem acessar a internet por meio de uma rede local sem fio (WLAN) e um ponto de acesso sem fio. O Wi-Fi geralmente opera nas faixas de 2,4 GHz e 5,8 GHz.
 
 Tais ondas são influenciadas por vários materiais comuns, podendo ser refletidas ou absorvidas por estes, restringindo a distância de conexão do Wi-Fi, mas também diminuem a interferência entre redes, pois como todas as redes sem fio são afetadas por interferências físicas, duas redes terão menos interferências entre si se tiverem estruturas físicas entre elas para refletir suas ondas.
@@ -61,6 +61,12 @@ Embora o ataque destine-se à interceptação de dados sem a necessidade de se c
 
 Todas as ferramentas até o momento liberadas destinam-se somente a testes. Nenhuma ferramenta capaz de efetivamente realizar o ataque foi publicada, embora o autor tenha exibido em vídeo uma prova de conceito em funcionamento da exploração do caso particular em que uma chave composta somente de zeros é reinstalada.
 
+\section{Descrição do problema}
+O caso do KrackAttack que será abordado neste paper diz respeita ao que acontece com dispositivos Android e Linux da chave de criptografia tornar-se zero. Caso isso ocorra o atacante tem a capacidade de interferir em todas as trocas entre cliente e servidor, podendo assim: alterar dados de compras, ter acesso à dados pessoais, informações do cartão de crédito, redirecionar os pedidos de conexão para um sitio malicioso e alterar pacotes recebidos pelo cliente para softwares maliciosos. 
+
+
+\section{Proposta de experimento}
+Para entender melhor como o ataque funciona a proposta é implementar o \textit{KrackAttack} basendo-se no \textit{script} disponibilizado no site oficial (https://www.krackattacks.com/), ele é um código implementado basicamente na linguagem python e C que gera uma rede Wi-Fi no computador que pode ser acessada, ao acessar essa rede ela testa a vulnerabilidade ao \textit{KrackAttack} do dispositivo que se conectou.
 
 %\section{Conclusão}
 
