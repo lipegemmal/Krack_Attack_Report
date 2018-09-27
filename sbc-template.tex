@@ -34,7 +34,7 @@ Alameda Palmeiras, Quadra D,Câmpus Samambaia -- \\ 74690-900 -- Goiânia -- GO 
 
 %Tal pessoa escreve
 \section{Introdução}
-	O Krack Attack \cite{vanhoef:2017} foi desenvolvido em 2017 por Mathy Vanhoef do grupo de pesquisa DistriNet da universidade belga Ku Leuven. Ele é tipo de ataque ao Wi-Fi, mais precisamente ao protocolo WPA2 (\textit{Wi-Fi Protected Access}) responsável pela segurança da comunicação entre usuário e ponto de acesso. O ataque explora uma vulnerabilidade na etapa de autenticação, mais especificamente na parte de  confirmação do 4-way handshake. Esse consiste na mainpulação dos pacotes trocados entre as partes durante essa etapa, tornando-o um ataque do tipo \textit{Man in The Middle} (MITM).
+	O Key Reinstallarion Attacks, apelidado de Krack Attack \cite{1} foi desenvolvido em 2017 por Mathy Vanhoef do grupo de pesquisa DistriNet da universidade belga Ku Leuven. Ele é tipo de ataque ao Wi-Fi, mais precisamente ao protocolo WPA2 (\textit{Wi-Fi Protected Access}) responsável pela segurança da comunicação entre usuário e ponto de acesso. O ataque explora uma vulnerabilidade na etapa de autenticação, mais especificamente na parte de  confirmação do 4-way handshake. Esse consiste na mainpulação dos pacotes trocados entre as partes durante essa etapa, tornando-o um ataque do tipo \textit{Man in The Middle} (MITM).
 	Em dispositivos Android e Linux, que usam o cliente de Wi-Fi \textit{wpa\_supplicant}, foi identificada uma situação específica em que a chave da sessão utilizada para criptografar os pacotes pode ser forçada pelo ataque a assumir o valor zero. Isso torna trivial interceptar e manipular o tráfego de dados entre esses dispositivos.
 
 \section{Tecnologias envolvidas}
@@ -62,7 +62,7 @@ Embora o ataque destine-se à interceptação de dados sem a necessidade de se c
 Todas as ferramentas até o momento liberadas destinam-se somente a testes. Nenhuma ferramenta capaz de efetivamente realizar o ataque foi publicada, embora o autor tenha exibido em vídeo uma prova de conceito em funcionamento da exploração do caso particular em que uma chave composta somente de zeros é reinstalada.
 
 \section{Descrição do problema}
-O caso do KrackAttack que será abordado neste paper diz respeita ao que acontece com dispositivos Android e Linux da chave de criptografia tornar-se zero. Caso isso ocorra o atacante tem a capacidade de interferir em todas as trocas entre cliente e servidor, podendo assim: alterar dados de compras, ter acesso à dados pessoais, informações do cartão de crédito, redirecionar os pedidos de conexão para um sitio malicioso e alterar pacotes recebidos pelo cliente para softwares maliciosos. 
+O caso do KrackAttack que será abordado neste artigo diz respeita a um ató malícioso em que ocorre a mudança da chave de criptografia do cliente Wi-Fi em dispositivos Android e Linux  para zero (all zero key) forçadamente. Isso é feito se infiltrando no processo de 4-way-handshake entre um client e um host, mais especificamente apos a terceira mensagem, onde é instalado uma chave, e caso uma resposta de confirmação não seja recebida, a terceira mensagem será reinviada e a chave reinstalada. Foi mostrado que um ataque pode forçar essas reinstalações da chave com uma coleta e repetição da terceira mensagem do 4-way-handshake. Caso o ataque ocorra com sucesso, o atacante tem a capacidade de interferir em todas as trocas entre cliente e servidor, podendo assim: alterar dados de compras, ter acesso à dados pessoais, informações do cartão de crédito, redirecionar os pedidos de conexão para um sitio malicioso e alterar pacotes recebidos pelo cliente para softwares maliciosos. 
 
 
 \section{Proposta de experimento}
@@ -177,7 +177,9 @@ Para entender melhor como o ataque funciona a proposta é implementar o \textit{
 %images with excessive resolution, as they may take hours to print, without any
 %visible difference in the result. 
 %
-\section{Referências}
+\begin{thebibliography}{}
+\bibitem{1} Mathy Vanhoef and Frank Piessens. 2017. Key Reinstallation Attacks: Forcing Nonce Reuse in WPA2. In Proceedings of the 24th ACM Conference on Computer and Communications Security (CCS). ACM.
+\end{thebibliography}
 %
 %Bibliographic references must be unambiguous and uniform.  We recommend giving
 %the author names references in brackets, e.g. \cite{knuth:84},
