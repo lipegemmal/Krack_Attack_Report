@@ -1,0 +1,9 @@
+\begin{thebibliography}{}
+
+\bibitem[Vanhoef and Piessens 2017]{vanhoef:2017}
+Vanhoef, M. and Piessens, F. (2017).
+\newblock Key reinstallation attacks: Forcing nonce reuse in {WPA2}.
+\newblock In {\em Proceedings of the 24th ACM Conference on Computer and
+  Communications Security (CCS)}. ACM.
+
+\end{thebibliography}
