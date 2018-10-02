@@ -62,7 +62,7 @@ Embora o ataque destine-se à interceptação de dados sem a necessidade de se c
 Todas as ferramentas até o momento liberadas destinam-se somente a testes. Nenhuma ferramenta capaz de efetivamente realizar o ataque foi publicada, embora o autor tenha exibido em vídeo uma prova de conceito em funcionamento da exploração do caso particular em que uma chave composta somente de zeros é reinstalada.
 
 \section{Descrição do problema}
-O caso do KrackAttack que será abordado neste artigo diz respeito a um ato malicioso em que o dispositivo é induzido a mudança da chave de criptografia do cliente Wi-Fi em dispositivos Android e Linux  para zero (all zero key). Isso é feito manipulando-se o processo de \textit{4-way-handshake} entre um suplicante e um ponto de acesso, mais especificamente após a terceira mensagem, quando é instalado uma chave, e caso uma resposta de confirmação não seja recebida, a terceira mensagem será reenviada e a chave reinstalada. Foi mostrado que um ataque pode forçar essas reinstalações da chave com uma coleta e repetição da terceira mensagem do \textit{4-way-handshake}. 
+O caso do KrackAttack que será abordado neste artigo diz respeito a um ato malicioso em que um cliente Wi-Fi Android ou Linux é induzido a mudança da chave de criptografia de sessão para zero (all zero key). Isso é feito manipulando-se o processo de \textit{4-way-handshake} entre um suplicante e um ponto de acesso, mais especificamente após a terceira mensagem, quando é instalada uma chave, e caso uma resposta de confirmação não seja recebida, a terceira mensagem será reenviada e a chave reinstalada. Foi mostrado que um ataque pode forçar essas reinstalações da chave com uma coleta e repetição da terceira mensagem do \textit{4-way-handshake}. 
 
 Caso o ataque ocorra com sucesso, o atacante tem a capacidade de interferir em todas as trocas entre suplicante e ponto de acesso, podendo assim: alterar dados de compras, ter acesso a dados pessoais, informações de cartão de crédito, redirecionar os pedidos de conexão para um sítio malicioso e alterar pacotes recebidos pelo cliente para softwares maliciosos. 
 
@@ -70,9 +70,9 @@ Note que tal ataque não pode resultar na obtenção da senha da rede utilizada,
 
 
 \section{Proposta de experimento}
-O experimento se baseará no \textit{script} mencionado na sessão Ferramentas, ele será modificado para servir não apenas como um ponto de acesso para testes, mas também como um que dá acesso à internet. Assim, pode-se usar a técnica de \textit{ARP spoofing}\cite{} para forçar o acesso do suplicante à Wi-Fi maliciosa e ter acesso aos pacotes criptografados.
+O experimento basear-se-á no \textit{script} mencionado na sessão Ferramentas. Ele será modificado para servir não apenas como um ponto de acesso para testes, mas também como um que dá acesso à internet. Assim, pode-se usar a técnica de \textit{Wi-Fi spoofing} para forçar o acesso do suplicante à Wi-Fi maliciosa e ter acesso aos pacotes criptografados.
 
-Para acessar as informações contidas nos pacotes o \textit{KrackAttack} será lançado logo após o \textit{ARP spoofing} para consumir o último pacote de confirmação do \textit{4-Way-Handshake} e forçar o recalculo da chave de sessão entre o suplicante e o ponto de acesso malicioso, zerando-a por causa da falha de implementação, assim os pacotes poderão ser descriptografados.
+Para acessar as informações contidas nos pacotes o \textit{KrackAttack} será lançado logo após o \textit{Wi-Fi spoofing} para consumir o último pacote de confirmação do \textit{4-Way-Handshake} e forçar o recalculo da chave de sessão entre o suplicante e o ponto de acesso malicioso, zerando-a por causa da falha de implementação, assim os pacotes poderão ser descriptografados.
 
 %\textit{arp spoofing}
 
