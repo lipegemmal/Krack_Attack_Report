@@ -52,8 +52,16 @@ Ele traz melhorias de segurança ao protocolo Wi-Fi, como a utilização do algo
 
 \subsubsection{4-Way Handshake}
 O \textit{4-way handshake} utiliza um pequeno grupo de chaves de criptografia para se comunicar de forma segura.
-O cliente Wi-Fi e o ponto de acesso enviam mensagens um ao outro, que só podem ser descriptografadas com a chave de sessão PTK (\textit{Pairwise Transient Key}), que é derivada a partir da chave secreta compatilhada PMK (\textit{Pairwise Master Key}), gerada na fase inicial de autenticação do cliente.
-	Dessa forma, o \textit{4-way handshake} permite que tanto o cliente quanto o ponto de acesso possam provar um ao outro que eles conhecem a chave PMK, sem nunca divulgá-las, pois, se a descriptografia foi bem sucedida, então há conhecimento da chave.
+O cliente Wi-Fi e o ponto de acesso enviam mensagens um ao outro, que só podem ser descriptografadas com a chave de sessão PTK (\textit{Pairwise Transient Key}), que é derivada a partir da contatenação dos seguintes elementos: chave secreta compatilhada PMK (\textit{Pairwise Master Key}) , ANonce (número único arbitrário, escolhido pelo ponto de acesso), SNonce (número único arbitrário, escolhido pelo cliente Wi-Fi), endereço MAC ponto de acesso, endereço MAC cliente Wi-Fi; A PMK é derivada da senha criptografa pela função PBKDF2-SHA1 (\textit{Password-Based Key Derivation Function 2}).
+	Segue o funcionamento do protocolo:
+
+	{deixar um espaço antes da imagem(para nao ficar colado com o texto acima)}
+	{imagem aqui}
+	{deixar um espaço depois da imagem(para nao ficar colado com o texto abaixo)}
+
+	Primeiro o ponto de acesso gera o ANonce e a envia para o cliente Wi-fi (mensagem 1/4), onde irá derivar a chave PTK e enviar o seu número arbitrário (SNonce) junto de um MIC(\textit{Message Integrity Code}) (mensagem 2/4), agora o ponto de acesso também pode construir a chave PTK. Então o ponto de acesso verifica a validade da mensagem 2 e constrói a chave GTK (\textit{Group Temporal Key}) e a envia junto de outro MIC (mensagem 3/4) para o cliente Wi-Fi, que verificará a validade da mensagem e responderá com uma confirmação ACK (mensagem 4/4).
+
+	Dessa forma, o \textit{4-way handshake} permite que tanto o cliente quanto o ponto de acesso possam provar um ao outro que eles conhecem a chave PMK, sem nunca envia-las pela rede, pois, se a descriptografia foi bem sucedida, então há conhecimento da chave PTK (que depende da chave PMK).
 	
 \subsection{Ferramenta}
 O autor do ataque publicou um conjunto de \textit{scripts} desenvolvidos na linguagem Python que permitem a verificação da vulnerabilidade de qualquer implementação do 4-way handshake. Estes scripts estão disponíveis em um repositório no GitHub\footnote{https://github.com/vanhoefm/krackattacks-scripts}. Com eles é possível a realização de testes que exploram tanto a reinstalação da PTK quanto da GTK.
