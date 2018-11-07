@@ -38,7 +38,7 @@ Alameda Palmeiras, Quadra D,Câmpus Samambaia -- \\ 74690-900 -- Goiânia -- GO 
 	Em dispositivos Android e Linux, que usam o cliente de Wi-Fi \textit{wpa\_supplicant}, foi identificada uma situação específica em que a chave da sessão utilizada para criptografar os pacotes pode ser forçada pelo ataque a assumir o valor zero. Isso torna trivial interceptar e manipular o tráfego de dados entre esses dispositivos.
 
 \section{Tecnologias envolvidas}
-\subsection{Wifi}
+\subsection{Wi-Fi}
 É uma tecnologia criada para redes locais de radio sem fio de dispositivos baseados no padrão IEEE 802.11. Dispositivos que completam com sucesso o teste de certificado de interoperabilidade podem ser chamados de \textit{Wi-Fi Certified} (Certificado em Wi-Fi). O padrão Wi-Fi opera em faixas de frequências que não necessitam de licença para instalação e/ou operação. Dispositivos compatíveis podem acessar a internet por meio de uma rede local sem fio (WLAN) e um ponto de acesso sem fio. O Wi-Fi geralmente opera nas faixas de 2,4 GHz e 5,8 GHz.
 
 Tais ondas são influenciadas por vários materiais comuns, podendo ser refletidas ou absorvidas por estes, restringindo a distância de conexão do Wi-Fi, mas também diminuem a interferência entre redes, pois como todas as redes sem fio são afetadas por interferências físicas, duas redes terão menos interferências entre si se tiverem estruturas físicas entre elas para refletir suas ondas.
@@ -55,27 +55,59 @@ O cliente Wi-Fi e o ponto de acesso enviam mensagens um ao outro, que só podem 
 	Dessa forma, o \textit{4-way handshake} permite que tanto o cliente quanto o ponto de acesso possam provar um ao outro que eles conhecem a chave PMK, sem nunca divulgá-las, pois, se a descriptografia foi bem sucedida, então há conhecimento da chave.
 	
 \subsection{Ferramenta}
-O autor do ataque publicou um conjunto de scripts desenvolvidos na linguagem Python que permitem a verificação da vulnerabilidade de qualquer implementação do 4-way handshake. Estes scripts estão disponíveis em um repositório no GitHub\footnote{https://github.com/vanhoefm/krackattacks-scripts}. Com eles é possível a realização de testes que exploram tanto a reinstalação da PTK quanto da GTK.
+O autor do ataque publicou um conjunto de \textit{scripts} desenvolvidos na linguagem Python que permitem a verificação da vulnerabilidade de qualquer implementação do 4-way handshake. Estes scripts estão disponíveis em um repositório no GitHub\footnote{https://github.com/vanhoefm/krackattacks-scripts}. Com eles é possível a realização de testes que exploram tanto a reinstalação da PTK quanto da GTK.
 
 Embora o ataque destine-se à interceptação de dados sem a necessidade de se conhecer a PSK da rede, para os testes é necessário que as credenciais sejam conhecidas. Isto porque o cliente alvo deve se conectar ao ponto de acesso que é emulado pelo script. Este ponto de acesso é criado a partir de uma versão modificada do \textit{hostapd}, um serviço de espaço do usuário muito utilizado em sistemas Linux. Este serviço é executado e controlado a partir dos scripts em Python. Pode-se usar tanto um SSID novo quanto um existente. Neste último caso, a rede é criada em um canal diferente do da original e o cliente é forçado a conectar-se à falsa rede.
 
-Todas as ferramentas até o momento liberadas destinam-se somente a testes. Nenhuma ferramenta capaz de efetivamente realizar o ataque foi publicada, embora o autor tenha exibido em vídeo uma prova de conceito em funcionamento da exploração do caso particular em que uma chave composta somente de zeros é reinstalada.
+Além disso, mesmo não disponibilizado no sítio do Krack, existe outro conjunto de \textit{scripts} que são uma prova de conceito para o caso partícular em que o ataque induz uma chave de sessão zerada (\textit{all zero key}). Com ele é possível ter acesso aos pacotes criptografados que trafegam entre o aparelho vulnerável e o atacante, e como a chave é zerada todos os pacotes são facilmente legíveis.
+
+Para a execução do ataque é necessário que o computador que atuará como \textit{Man-In-The-Middle} esteja equipado com duas interfaces Wi-Fi, pois uma servirá como ponto de acesso para o aparelho vulnerável e a outra utilizada para se comunicar com o roteador de acesso original para o qual os pacotes iniciais do \textit{4-way handshake} serão direcionados.
+
 
 \section{Descrição do problema}
-O caso do KrackAttack que será abordado neste artigo diz respeito a um ato malicioso em que um cliente Wi-Fi Android ou Linux é induzido a mudança da chave de criptografia de sessão para zero (all zero key). Isso é feito manipulando-se o processo de \textit{4-way-handshake} entre um suplicante e um ponto de acesso, mais especificamente após a terceira mensagem, quando é instalada uma chave, e caso uma resposta de confirmação não seja recebida, a terceira mensagem será reenviada e a chave reinstalada. Foi mostrado que um ataque pode forçar essas reinstalações da chave com uma coleta e repetição da terceira mensagem do \textit{4-way-handshake}. 
+O caso do KrackAttack que será abordado neste artigo diz respeito a um ato malicioso em que um cliente Wi-Fi Android ou Linux é induzido a mudança da chave de criptografia de sessão para zero (\textit{all zero key}). Isso é feito manipulando-se o processo de \textit{4-way-handshake} entre um suplicante e um ponto de acesso, mais especificamente após a terceira mensagem, quando é instalada uma chave, e caso uma resposta de confirmação não seja recebida, a terceira mensagem será reenviada e a chave reinstalada. Foi mostrado que um ataque pode forçar essas reinstalações da chave com uma coleta e repetição da terceira mensagem. 
 
 Caso o ataque ocorra com sucesso, o atacante tem a capacidade de interferir em todas as trocas entre suplicante e ponto de acesso, podendo assim: alterar dados de compras, ter acesso a dados pessoais, informações de cartão de crédito, redirecionar os pedidos de conexão para um sítio malicioso e alterar pacotes recebidos pelo cliente para softwares maliciosos. 
 
-Note que tal ataque não pode resultar na obtenção da senha da rede utilizada, nem das chaves de criptografia usadas para o \textit{handshake}. Também não é possível descriptografar pacotes criptografados, e como a grande maioria da troca de pacotes em rede é criptografada, é difícil se encontrar numa situação onde esse ataque pode ser usado e obter algum valor significativo como resultado.
+Note que tal ataque não pode resultar na obtenção da senha da rede utilizada, nem das chaves de criptografia usadas para o \textit{handshake}. Também não é possível descriptografar pacotes  criptografados, e como a grande maioria da troca de pacotes em rede é criptografada, é difícil se encontrar numa situação onde esse ataque pode ser usado e obter algum valor significativo como resultado.
 
 
 \section{Proposta de experimento}
+Inicialmente desejava-se implementar o ataque para a excessão \textit{all zero key} utilizando o script de teste como base, e para isso algoritmos e técnicas como \textit{Wi-Fi spoofing} seriam modificados e inseridas para que possa-se acessar os pacotes e servir como um \textit{proxy} para o suplicante. Porém durante os estudos foi encontrado o \textit{script} feito pelo próprio autor que realiza o ataque com a chave zero, então ele será entendido e utilizado no lugar de uma implementação nova.  
+
+O experimento basear-se-á no script de teste de vulnerabilidade que será utilizado em uma pesquisa de vulnerabilidade de marcas, modelos, e versões do sistema operacional de aparelhos celulares ao ataque. O autor menciona que 50\% dos aparelhos eram vulneráveis na época em que a falha foi descoberta, então esse valor será comparado com as taxas atuais.
+
+Além disso, com o objetivo de entender ainda melhor como o ataque se dá, uma execução controlada do script malicioso será feita. 
+
+//Texto antigo
+
 O experimento basear-se-á no \textit{script} mencionado na sessão Ferramentas. Ele será modificado para servir não apenas como um ponto de acesso para testes, mas também como um que dá acesso à internet. Assim, pode-se usar a técnica de \textit{Wi-Fi spoofing} para forçar o acesso do suplicante à Wi-Fi maliciosa e ter acesso aos pacotes criptografados.
 
 Para acessar as informações contidas nos pacotes o \textit{KrackAttack} será lançado logo após o \textit{Wi-Fi spoofing} para consumir o último pacote de confirmação do \textit{4-Way-Handshake} e forçar o recalculo da chave de sessão entre o suplicante e o ponto de acesso malicioso, zerando-a por causa da falha de implementação, assim os pacotes poderão ser descriptografados.
 
+
 \section{Relatório de experimento}
-Algumas abordagens foram tentadas para cumprir o experimento. Com o script mencionado compilado e executando obtivemos um aparelho celular com sistema operacional vulnerável ao ataque. Adquirimos um roteador Wi-Fi comum e o instalamos no laboratorio com um dos cabos de ethernet disponíveis e também obtivemos um dispositivo de Wi-Fi que pode ser instalado via USB, assim pudemos ter dois hardwares para Wi-Fi em um mesmo computador, possibilitando que um deles imite a rede alvo e um deles se conecte a tal rede. Colocamos o computador utilizado entre o celular vulneravel e o moden da rede alvo para propriamente agir como "man in the middle", e obtivemos resultados negativos, o ataque não estava funcionando. Após algumas tentativas visitamos novamente as fontes de informações sobre o ataque e vimos que distanciar os dois dispositivos de Wi-Fi um do outro poderia ajudar, então com a ajuda de um cabo com uma ponta USB macho e uma ponta USB femea, conseguimos distanciar os dispositivos. Após mas alguns testes encontramos problemas no sentido em que o computador utilizado não estava enviando a terceira chave. Aprofundando mais nesse problema, percebemos que ele pode estar relacionado a uma socket especifica ja estar em uso. Após solucinar esse problema
+Para as estatísticas entrevistas foram realizadas
+
+Algumas etapas foram realizadas para cumprir o experimento. Co
+
+
+
+//Texto antigo
+
+Algumas etapas foram realizadas para cumprir o experimento. Com o script mencionado compilado e executando obtivemos um aparelho celular com sistema operacional vulnerável ao ataque. Utilizando um roteador Wi-Fi comum e o instalamos no laboratorio com um dos cabos de ethernet disponíveis e também obtivemos um dispositivo de Wi-Fi que pode ser instalado via USB, assim pudemos ter dois hardwares para Wi-Fi em um mesmo computador, possibilitando que um deles imite a rede alvo e um deles se conecte a tal rede. Colocamos o computador utilizado entre o celular vulneravel e o moden da rede alvo para propriamente agir como "man in the middle", e obtivemos resultados negativos, o ataque não estava funcionando. Após algumas tentativas visitamos novamente as fontes de informações sobre o ataque e vimos que distanciar os dois dispositivos de Wi-Fi um do outro poderia ajudar, então com a ajuda de um cabo com uma ponta USB macho e uma ponta USB femea, conseguimos distanciar os dispositivos. Após mas alguns testes encontramos problemas no sentido em que o computador utilizado não estava enviando a terceira chave. Aprofundando mais nesse problema, percebemos que ele pode estar relacionado a uma socket especifica ja estar em uso. Após solucinar esse problema
+
+\section{Execução final}
+Como a construção do ataque baseado no \textit{script} de teste de vulnerabilidade provava-se uma tarefa complexa, foram buscados mais exemplos e durante a procura encontrou-se um repositório pouco divulgado do próprio autor do Krack que disponibilizava o projeto completo e funcional.
+
+Então o novo experimento será baseado em uma nova versão das estatísticas de vulnerabilidade apresentadas quando o ataque foi descoberto (na qual fala que 60\% dos aparelhos são vulneráveis) e com uma exemplificação do ataque utilizando o algoritmo disponibilizado pelo Mathy Vanhoef.
+
+
+
+
+
+
+
 
 %\textit{arp spoofing}
 
@@ -189,9 +221,9 @@ Algumas abordagens foram tentadas para cumprir o experimento. Com o script menci
 %images with excessive resolution, as they may take hours to print, without any
 %visible difference in the result. 
 %
-\begin{thebibliography}{}
-\bibitem{1} Mathy Vanhoef and Frank Piessens. 2017. Key Reinstallation Attacks: Forcing Nonce Reuse in WPA2. In Proceedings of the 24th ACM Conference on Computer and Communications Security (CCS). ACM.
-\end{thebibliography}
+
+\section{Referências}
+
 %
 %Bibliographic references must be unambiguous and uniform.  We recommend giving
 %the author names references in brackets, e.g. \cite{knuth:84},
