@@ -63,16 +63,25 @@ Dessa forma, o \textit{4-way handshake} permite que tanto o cliente quanto o pon
 
 \begin{figure}[H]
 	\begin{center}
-    	\includegraphics[width=10cm]{Handshake.png}
+    	\includegraphics[width=12cm]{Handshake.png}
     	\caption{Diagrama de execução do \textit{4-way handshake}}
     	\label{fig:handshake}
 	\end{center}		
 \end{figure}
 
-\subsection{O ataque}
+\subsection{O Ataque}
 
-Para realizar o ataque, o atacante tenta agir como um intermediario entre o dispositivo alvo e o roteador,  interceptando e encaminhando as mensagens enviadas entre eles e por isso necessita de duas interfaces de rede, uma para criar, uma para criar o ponto de acesso onde o dispositivo alvo se conectará e a outra para estabelecer conexão com o roteador.O ataque se inicia com um \textit{spoofing} de Wi-Fi para forçar a conexão do cliente com o atacante. A imagem \ref{} mostra com mais detalhes como o ataque funciona. Esta se encontra num ponto após contatos iniciais entre o dispositivo alvo e o roteador, no momento em que o 4-Way-Handshake é iniciado. A troca de mensagens funciona de forma normal, com o atacante no meio repassando as mensagens, até a quarta mensagem ser criada pelo dispositivo alvo, que ao ser enviada para o roteador, sera interceptada pelo atacante, que então vai reenviar a terceira mensagem para o dispositivo alvo,  fazendo com que esse pense que a quarta mensagem não foi entregada ao modem com sucesso, o dispositivo alvo então reinstala o PTK zero e o envia para o moden, mas a menssagem é interceptada pelo atacante que reinstala o mesmo PTK zero e o utiliza para obter os pacotes do dispositivo alvo.
+Para realizar o ataque, o atacante deve agir como um intermediario entre o dispositivo alvo e o roteador,  interceptando e encaminhando as mensagens enviadas entre eles e por isso necessita de duas interfaces de rede, uma para criar o ponto de acesso malicioso a que o dispositivo alvo conectar-se-á e outra para estabelecer conexão com o ponto de acesso original.
 
+O ataque se inicia com um \textit{spoofing} de \textit{Wi-Fi} para forçar a conexão do cliente com o atacante. A imagem \ref{fig:ataque} mostra com mais detalhes como o ataque funciona. Esta se encontra no momento em que o \textit{4-way-handshake} é iniciado, após a comunicação inicial intermediada pelo atacante entre o dispositivo alvo e o ponto de acesso original. A troca de mensagens ocorre de forma esperada, mesmo com o atacante retransmitindo as mensagens, até que a quarta mensagem seja enviada pelo dispositivo alvo, quando será interceptada e bloqueada pelo atacante. Este então repetirá para o dispositivo alvo a terceira mensagem que foi anteriormente armazenada, levando o cliente a assumir que a quarta mensagem não foi entregada ao ponto de acesso original com sucesso. Neste momento, o dispositivo alvo então reinstalará sua chave PTK e transmitirá novamente a quarta mensagem. Em algumas implementações, a chave será reinstalada com o valor zero. A partir deste momento, como a chave será conhecida, a retransmissão de mensagens para o ponto de acesso original não é mais necessária, e o ponto de acesso malicioso poderá obter acesso total aos pacotes por ele trafegados.
+
+\begin{figure}[H]
+	\begin{center}
+    	\includegraphics[width=15cm]{Ataque.png}
+    	\caption{Diagrama de execução do \textit{4-way handshake}}
+    	\label{fig:ataque}
+	\end{center}		
+\end{figure}
 
 \subsection{Ferramenta}
 O autor do ataque publicou um conjunto de \textit{scripts} desenvolvidos na linguagem Python que permitem a verificação da vulnerabilidade de qualquer implementação do \textit{4-way handshake}. Estes scripts estão disponíveis em um repositório no GitHub\footnote{https://github.com/vanhoefm/krackattacks-scripts}. Com eles é possível a realização de testes que exploram tanto a reinstalação da PTK quanto da GTK.
