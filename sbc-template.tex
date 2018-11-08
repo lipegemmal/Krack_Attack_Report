@@ -7,7 +7,7 @@
 \usepackage[T1]{fontenc}  
 \usepackage{indentfirst}
 \usepackage{graphicx}
-
+\usepackage{float}
      
 \sloppy
 
@@ -58,12 +58,12 @@ O esquema de funcionamento do protocolo se dá de acordo com as seguintes etapas
 Dessa forma, o \textit{4-way handshake} permite que tanto o cliente quanto o ponto de acesso possam provar um ao outro o conhecimento da chave PMK, sem nunca transmití-la pela rede, pois, se a descriptografia foi bem sucedida, então ambas as partes derivaram a mesma PTK (que depende da chave PMK).
     
 
-\begin{figure}
+\begin{figure}[H]
 	\begin{center}
     	\includegraphics[width=10cm]{Handshake.png}
     	\caption{Diagrama de execução do \textit{4-way handshake}}
     	\label{fig:handshake}
-	\end{center}	
+	\end{center}		
 \end{figure}
 
 \subsection{Ferramenta}
@@ -89,43 +89,36 @@ O objetivo do experimento é reproduzir o ataque demonstrado em vídeo\footnote{
 
 Além disso, dada a alegação do autor de que, à época da descoberta da vulnerabilidade, cerca de 50\% dos aparelhos Android encontravam-se vulneráveis ao ataque, decidiu-se realizar um levantamento com os estudantes do Instituto de Informática (INF), com o objetivo de se identificar qual o pertecentual atual ainda vulnerável ao ataque após 1 ano de sua publicação. Registrando marcas, modelos e versões do sistema operacional de aparelhos celulares Android, será compilada uma tabela com os dados obtidos.
 
-\section{Relatório de experimento}
+\section{Realização do experimento}
+Para a preparação do cenário propício para o experimento, foram necessárias algumas etapas. Primeiro foi necessário a identificação de um aparelho celular vulnerável ao ataque com o auxilio do \textit{script} de teste.
+
+O \textit{script} de ataque tem como requisito um ponto de acesso alvo e duas interfaces (no atacante) \textit{Wi-Fi}, para que se possa fazer o roteamento conforme explicado na sessão que descreve o ataque.
 
 
-\begin{table}[]
-\centering
-\caption{Pesquisa de Vulnerabilidade}
-\label{my-label}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{|c|c|c|}
+\section{Resultados do experimento}
+Para o levantamento proposto, foi avaliada uma amostra de 23 aparelhos celulares. Os resultados podem ser vistos na Tabela \ref{table:Tabela1}. Observamos que cerca de 87\% dos aparelhos analisados não são vulneráveis ao ataque em contraste com os 50\% alegados pelo autor. Nota-se que, assim como afirmado no artigo do autor, a vulnerabilidade predomina a partir da versão Android 6.0. Outro fator de influência é o fabricante. Dentre os analisados só foram encontradas vulnerabilidades nas marcas Asus e Lenovo. Porém no Asus observamos que a falha foi corrigida com as atualizações mais recentes do sistema Android. 
+
+\begin{table}[H]
+\caption{Resultado da avaliação de vulnerabilidade}
+\begin{tabular}{|c|c|c|c|c|}
 \hline
-\textbf{Modelo}   & \textbf{Sistema Operacional} & \textbf{Vulnerabilidade} \\ \hline
-Moto Z- 1ªGeração & Android 8.0.0                & Não Vulnerável           \\ \hline
-Zenphone 4 Selfie & Android 8.1.0                & Não Vulnerável           \\ \hline
-Moto E            & Android 7.1.0                & Não Vulnerável           \\ \hline
-Xiaomi            & Android 7.0.0                & Não Vulnerável           \\ \hline
-Moto G5           & Android 8.1.0                & Não Vulnerável           \\ \hline
-Samsung S7        & Android 7.0.0                & Não Vulnerável           \\ \hline
-Iphone 6 Plus     & IOS 12.1                     & Não Vulnerável           \\ \hline
-Zenphone 3 Max    & Android 8.1.0                & Não Vulnerável           \\ \hline
-IPro Phoenix 4.0  & Android 6                    & Vulnerável               \\ \hline
-\end{tabular}%
-}
+\textbf{Fabricante} & \textbf{Modelo} & \textbf{Sistema Operacional} & \multicolumn{1}{l|}{\textbf{Quantidade}} & \textbf{Vulnerabilidade} \\ \hline
+Motorola & Moto Z- 1ªGeração & Android 8.0.0 & 3 & Não Vulnerável \\ \hline
+Asus & Zenfone 4 Selfie & Android 8.1.0 & 1 & Não Vulnerável \\ \hline
+Asus & Zenfone 4 Selfie & Android 7.1.0 & 1 & Vulnerável \\ \hline
+LG & L20 D100 & Android 4.4.0 & 1 & Não Vulnerável \\ \hline
+Motorola & Moto E & Android 7.1.0 & 2 & Não Vulnerável \\ \hline
+Xiaomi & Redmi & Android 7.0.0 & 1 & Não Vulnerável \\ \hline
+Motorola & Moto G5 & Android 8.1.0 & 3 & Não Vulnerável \\ \hline
+Samsung & S7 & Android 7.0.0 & 4 & Não Vulnerável \\ \hline
+Asus & Zenfone 3 Max & Android 8.1.0 & 2 & Não Vulnerável \\ \hline
+Asus & Zenfone 3 Max & Android 7.0.0 & 1 & Vulnerável \\ \hline
+Lenovo & Vibe K6 & Android 7.0.0 & 1 & Vulnerável \\ \hline
+Positivo & Twist S520 & Android 6.1.0 & 1 & Não Vulnerável \\ \hline
+Samsung & J2 & Android 5.1.0 & 2 & Não Vulnerável \\ \hline
+\end{tabular}
+\label{table:Tabela1}
 \end{table}
-
-
-
-
-
-
-//Texto antigo
-
-Algumas etapas foram realizadas para cumprir o experimento. Com o script mencionado compilado e executando obtivemos um aparelho celular com sistema operacional vulnerável ao ataque. Utilizando um roteador Wi-Fi comum e o instalamos no laboratorio com um dos cabos de ethernet disponíveis e também obtivemos um dispositivo de Wi-Fi que pode ser instalado via USB, assim pudemos ter dois hardwares para Wi-Fi em um mesmo computador, possibilitando que um deles imite a rede alvo e um deles se conecte a tal rede. Colocamos o computador utilizado entre o celular vulneravel e o moden da rede alvo para propriamente agir como "man in the middle", e obtivemos resultados negativos, o ataque não estava funcionando. Após algumas tentativas visitamos novamente as fontes de informações sobre o ataque e vimos que distanciar os dois dispositivos de Wi-Fi um do outro poderia ajudar, então com a ajuda de um cabo com uma ponta USB macho e uma ponta USB femea, conseguimos distanciar os dispositivos. Após mas alguns testes encontramos problemas no sentido em que o computador utilizado não estava enviando a terceira chave. Aprofundando mais nesse problema, percebemos que ele pode estar relacionado a uma socket especifica ja estar em uso. Após solucinar esse problema
-
-\section{Execução final}
-Como a construção do ataque baseado no \textit{script} de teste de vulnerabilidade provava-se uma tarefa complexa, foram buscados mais exemplos e durante a procura encontrou-se um repositório pouco divulgado do próprio autor do Krack que disponibilizava o projeto completo e funcional.
-
-Então o novo experimento será baseado em uma nova versão das estatísticas de vulnerabilidade apresentadas quando o ataque foi descoberto (na qual fala que 60\% dos aparelhos são vulneráveis) e com uma exemplificação do ataque utilizando o algoritmo disponibilizado pelo Mathy Vanhoef.
 
 
 
