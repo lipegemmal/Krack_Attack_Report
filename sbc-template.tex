@@ -52,10 +52,8 @@ Como resultado, logrou-se executar o ataque. Foi possível estabelecer uma posi�
 Tais ondas são influenciadas por vários materiais comuns, podendo ser refletidas ou absorvidas por estes, restringindo a distância de conexão do \textit{Wi-Fi}, mas esses também diminuem a interferência entre redes, pois como todas as redes sem fio são afetadas por interferências físicas, duas redes terão menos interferências entre si se houver estruturas físicas entre elas para refletir suas ondas.
 
 Como o \textit{Wi-Fi} é uma rede sem fio, qualquer pessoa dentro da sua área de alcance com uma interface sem fio pode tentar acessá-la. Por isso, \textit{Wi-Fi} é mais vulnerável a ataques do que redes conectadas por fios.
-
-\subsection{WPA2}
-Também conhecido como IEEE 802.11i, é o sucessor do WPA, substituindo-o desde 2006. Ele traz melhorias de segurança ao protocolo \textit{Wi-Fi}, como a utilização do algoritmo de criptografia AES (\textit{Advanced Encryption Standard}) e a introdução de dois novos protocolos: \textit{4-way handshake} e \textit{group key handshake}. Porém, devido ao maior custo computacional deste protocolo, alguns equipamentos mais antigos podem ser incompatíveis com o WPA2.
-
+\subsection{\textit{WPA2}}
+Também conhecido como IEEE 802.11i, é o sucessor do WPA(\textit{Wi-fi Protected Access}), substituindo-o desde 2006. Ele traz melhorias de segurança ao protocolo \textit{Wi-Fi}, como a utilização do algoritmo de criptografia AES (\textit{Advanced Encryption Standard}) e a introdução de dois novos protocolos: \textit{4-way handshake} e \textit{group key handshake}. Porém, devido ao maior custo computacional deste protocolo, alguns equipamentos mais antigos podem ser incompatíveis com o WPA2.
 \subsubsection{4-Way Handshake}
 O \textit{4-way handshake} tem como função gerar um pequeno grupo de chaves de criptografia comuns entre as partes para o estabelecimento de uma conexão segura. O cliente \textit{Wi-Fi} e o ponto de acesso enviam mensagens um ao outro, que só podem ser descriptografadas com a chave de sessão PTK (\textit{Pairwise Transient Key}), que é derivada a partir da contatenação dos seguintes elementos: chave secreta compatilhada PMK (\textit{Pairwise Master Key}), ANonce (número único arbitrário, escolhido pelo ponto de acesso), SNonce (número único arbitrário, escolhido pelo cliente Wi-Fi), endereço MAC do ponto de acesso, endereço MAC do cliente \textit{Wi-Fi}. A PMK é derivada pela função PBKDF2-SHA1 (\textit{Password-Based Key Derivation Function 2}).
 
