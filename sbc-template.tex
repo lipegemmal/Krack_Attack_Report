@@ -36,15 +36,18 @@ Alameda Palmeiras, Quadra D,Câmpus Samambaia -- \\ 74690-900 -- Goiânia -- GO 
 \end{resumo}
 
 
-%Tal pessoa escreve
 \section{Introdução}
-O \textit{Key Reinstallation Attacks}, apelidado de \textit{Krack Attacks} \cite{vanhoef:2017} foi desenvolvido em 2017 por Mathy Vanhoef do grupo de pesquisa DistriNet da universidade belga \textit{Ku Leuven}. Ele é um tipo de ataque ao sistema \textit{Wi-Fi}, mais precisamente ao protocolo WPA2 (\textit{Wi-Fi Protected Access}) responsável pela segurança da comunicação entre usuário e ponto de acesso. O ataque explora uma vulnerabilidade na etapa de autenticação, mais especificamente na parte de confirmação do \textit{4-way handshake}. Esse consiste na manipulação dos pacotes trocados entre as partes durante esta etapa, tornando-o um ataque do tipo \textit{Man in The Middle} (MITM).
+O \textit{Key Reinstallation Attacks}, apelidado de \textit{Krack Attacks} \cite{vanhoef:2017} foi desenvolvido em 2017 por Mathy Vanhoef do grupo de pesquisa DistriNet da universidade belga \textit{Ku Leuven}. Ele é um tipo de ataque ao sistema \textit{Wi-Fi}, mais precisamente ao protocolo WPA2 (\textit{Wi-Fi Protected Access}) responsável pela segurança da comunicação entre usuário e ponto de acesso. O ataque explora uma vulnerabilidade na etapa de autenticação, mais especificamente na parte de confirmação do \textit{4-way handshake}. Esse consiste na manipulação dos pacotes trocados entre as partes durante esta etapa, tornando-o um ataque do tipo \textit{Man In The Middle} (MITM).
 
 Em dispositivos Android e Linux, que usam o cliente de \textit{Wi-Fi} \textit{wpa\_supplicant}, foi identificada uma situação específica em que a chave da sessão utilizada para criptografar os pacotes pode ser forçada pelo ataque a assumir o valor zero. Isso torna trivial interceptar e manipular o tráfego de dados entre esses dispositivos.
 
+Este trabalho tem por objetivo a reprodução do ataque conforme demonstrado no vídeo publicado pelo autor\footnote{https://www.youtube.com/watch?v=Oh4WURZoR98} em seu sítio oficial. Para tal foi utilizado um conjunto de \textit{scripts} também disponibilizados pelo autor. Este foi analisado, estudado e adaptado conforme o necessário para o sucesso do experimento. 
+
+Como resultado, logrou-se executar o ataque. Foi possível estabelecer uma posição de \textit{Man In The Middle} entre um aparelho celular Android e seu ponto de acesso. Assim foi possível a visualização dos pacotes enviados e recebidos pelo alvo ao utilizar a rede. Em combinação com a ferramenta \textit{sslstrip} foi possível desabilitar a criptografia de alguns sítios e assim obter informações sensíveis do usuário alvo.
+ 
 \section{Tecnologias envolvidas}
 \subsection{\textit{Wi-Fi}}
-É uma tecnologia criada para redes locais de rádio sem fio com dispositivos baseados no padrão IEEE 802.11. Dispositivos que completam com sucesso o teste de certificado de interoperabilidade podem ser chamados de \textit{Wi-Fi Certified} (Certificado em Wi-Fi). O padrão \textit{Wi-Fi} opera em faixas de frequências que não necessitam de licença para instalação e/ou operação. Dispositivos compatíveis podem acessar a internet por meio de uma rede local sem fio (WLAN) e um ponto de acesso sem fio. O \textit{Wi-Fi} geralmente opera nas faixas de 2,4 GHz e 5,8 GHz.
+É uma tecnologia criada para redes locais de rádio sem fio com dispositivos baseados no padrão IEEE 802.11. Dispositivos que completam com sucesso o teste de certificado de interoperabilidade podem ser chamados de \textit{Wi-Fi Certified} (Certificado em \textit{Wi-Fi}). O padrão \textit{Wi-Fi} opera em faixas de frequências que não necessitam de licença para instalação e/ou operação. Dispositivos compatíveis podem acessar a internet por meio de uma rede local sem fio (WLAN) e um ponto de acesso sem fio. O \textit{Wi-Fi} geralmente opera nas faixas de 2,4 GHz e 5,8 GHz.
 
 Tais ondas são influenciadas por vários materiais comuns, podendo ser refletidas ou absorvidas por estes, restringindo a distância de conexão do \textit{Wi-Fi}, mas esses também diminuem a interferência entre redes, pois como todas as redes sem fio são afetadas por interferências físicas, duas redes terão menos interferências entre si se houver estruturas físicas entre elas para refletir suas ondas.
 
@@ -141,132 +144,12 @@ IPRÓ                & Phoenix 4.0\tablefootnote{Aparelho utilizado no experimen
 
 O experimento de ataque foi realizado com sucesso. Pôde-se vizualizar a troca de mensagens que não eram criptografadas pela camada de aplicação. Porém, para as que eram, foi necessário o uso de outras ferramentas, como \textit{sslstrip}, para sua remoção.
 
+\section{Conclusão}
 
-
-%\textit{arp spoofing}
-
-
-%\section{Conclusão}
-
-
-%\begin{abstract}
-%  This meta-paper describes the style to be used in articles and short papers
-%  for SBC conferences. For papers in English, you should add just an abstract
-%  while for the papers in Portuguese, we also ask for an abstract in
-%  Portuguese (``resumo''). In both cases, abstracts should not have more than
-%  10 lines and must be in the first page of the paper.
-%\end{abstract}
-     
-%
-%
-%\section{General Information}
-%
-%All full papers and posters (short papers) submitted to some SBC conference,
-%including any supporting documents, should be written in English or in
-%Portuguese. The format paper should be A4 with single column, 3.5 cm for upper
-%margin, 2.5 cm for bottom margin and 3.0 cm for lateral margins, without
-%headers or footers. The main font must be Times, 12 point nominal size, with 6
-%points of space before each paragraph. Page numbers must be suppressed.
-%
-%Full papers must respect the page limits defined by the conference.
-%Conferences that publish just abstracts ask for \textbf{one}-page texts.
-%
-%\section{First Page} \label{sec:firstpage}
-%
-%The first page must display the paper title, the name and address of the
-%authors, the abstract in English and ``resumo'' in Portuguese (``resumos'' are
-%required only for papers written in Portuguese). The title must be centered
-%over the whole page, in 16 point boldface font and with 12 points of space
-%before itself. Author names must be centered in 12 point font, bold, all of
-%them disposed in the same line, separated by commas and with 12 points of
-%space after the title. Addresses must be centered in 12 point font, also with
-%12 points of space after the authors' names. E-mail addresses should be
-%written using font Courier New, 10 point nominal size, with 6 points of space
-%before and 6 points of space after.
-%
-%The abstract and ``resumo'' (if is the case) must be in 12 point Times font,
-%indented 0.8cm on both sides. The word \textbf{Abstract} and \textbf{Resumo},
-%should be written in boldface and must precede the text.
-%
-%\section{CD-ROMs and Printed Proceedings}
-%
-%In some conferences, the papers are published on CD-ROM while only the
-%abstract is published in the printed Proceedings. In this case, authors are
-%invited to prepare two final versions of the paper. One, complete, to be
-%published on the CD and the other, containing only the first page, with
-%abstract and ``resumo'' (for papers in Portuguese).
-%
-%\section{Sections and Paragraphs}
-%
-%Section titles must be in boldface, 13pt, flush left. There should be an extra
-%12 pt of space before each title. Section numbering is optional. The first
-%paragraph of each section should not be indented, while the first lines of
-%subsequent paragraphs should be indented by 1.27 cm.
-%
-%\subsection{Subsections}
-%
-%The subsection titles must be in boldface, 12pt, flush left.
-%
-%\section{Figures and Captions}\label{sec:figs}
-%
-%
-%Figure and table captions should be centered if less than one line
-%(Figure~\ref{fig:exampleFig1}), otherwise justified and indented by 0.8cm on
-%both margins, as shown in Figure~\ref{fig:exampleFig2}. The caption font must
-%be Helvetica, 10 point, boldface, with 6 points of space before and after each
-%caption.
-%
-%\begin{figure}[ht]
-%\centering
-%\includegraphics[width=.5\textwidth]{fig1.jpg}
-%\caption{A typical figure}
-%\label{fig:exampleFig1}
-%\end{figure}
-%
-%\begin{figure}[ht]
-%\centering
-%\includegraphics[width=.3\textwidth]{fig2.jpg}
-%\caption{This figure is an example of a figure caption taking more than one
-%  line and justified considering margins mentioned in Section~\ref{sec:figs}.}
-%\label{fig:exampleFig2}
-%\end{figure}
-%
-%In tables, try to avoid the use of colored or shaded backgrounds, and avoid
-%thick, doubled, or unnecessary framing lines. When reporting empirical data,
-%do not use more decimal digits than warranted by their precision and
-%reproducibility. Table caption must be placed before the table (see Table 1)
-%and the font used must also be Helvetica, 10 point, boldface, with 6 points of
-%space before and after each caption.
-%
-%\begin{table}[ht]
-%\centering
-%\caption{Variables to be considered on the evaluation of interaction
-%  techniques}
-%\label{tab:exTable1}
-%\includegraphics[width=.7\textwidth]{table.jpg}
-%\end{table}
-%
-%\section{Images}
-%
-%All images and illustrations should be in black-and-white, or gray tones,
-%excepting for the papers that will be electronically available (on CD-ROMs,
-%internet, etc.). The image resolution on paper should be about 600 dpi for
-%black-and-white images, and 150-300 dpi for grayscale images.  Do not include
-%images with excessive resolution, as they may take hours to print, without any
-%visible difference in the result. 
-%
+Conclui-se que o ataque é perigoso por ser transparente, ou seja, não requer nenhuma ação da vítima, e por poder ser executado em qualquer ambiente sem conhecimento das chaves de acesso da rede. Porém atualmente muitos fabricantes já corrigiram por meio de atualizações de segurança a vulnerabilidade que possibilita o ataque em seus sistemas, o que tem diminuído a quantidade de potenciais alvos.
 
 \section{Referências}
 
-%
-%Bibliographic references must be unambiguous and uniform.  We recommend giving
-%the author names references in brackets, e.g. \cite{knuth:84},
-%\cite{boulic:91}, and \cite{smith:99}.
-%
-%The references must be listed using 12 point font size, with 6 points of space
-%before each reference. The first line of each reference should not be
-%indented, while the subsequent should be indented by 0.5 cm.
-%
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
 
